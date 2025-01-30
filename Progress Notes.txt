@@ -1,0 +1,52 @@
+Progress Notes :
+================
+
+
+29/1/2025 Notes
+
+Code finally works using Ohollo's Chord Detection
+• python versions 2.7, 3.6, 3.9 and 3.10 did not work
+-> python version 3.8 finally worked
+• vamp continuously threw errors during installment
+-> vamp had to be manually downloaded and configured to path
+• the library threw errors when pip installing
+-> the library had to be installed using the GitHub url
+• there were multiple complications with other required libraries and library versions (example, numpy)
+-> these issues somehow resolved automatically after completing the above fixes
+• other chord detection libraries offered similar issues and bugs
+• often libraries or required components didn't have helpful enough documentation
+
+After much deliberation and testing, the chord detection library has successfully been installed for python3.8
+
+Implemented Features :
+• defining the extractor object (courtesy of Chordino)
+• extracting chords and their respective timestamps from locally stored songs (one at a time)
+• storing the above features from a 'ChordChange' object instead into arrays
+• splicing the storage location to obtain the song name and artist
+
+Upcoming Features :
+• designing an object to store
+  - song name
+  - music artist
+  - key signature
+  - chord progression (universal notation) with timestamps (dictionary/array)
+  - (optional - release date)
+• creating a naming convention for song files, which must include
+  - song name
+  - music artist
+  - key signature (to make universal chord progression notation)
+• looping over extracting from multiple songs (say, in a folder)
+• verifying detection accuracy (currently speculated at roughly 80%)
+
+Future Implementations :
+• compiling database of songs (possible to use top X number of songs on spotify for each year over a duration of time)
+• researching on machine learning technique to classify and regress data
+• installing and importing machine learning models
+• training the model against the data, and subsequently testing for similarities with new songs
+
+Additional Possibilities :
+• designing an app to interact with data and display outputs
+• designing a method to record audio, from which chords can be extracted
+
+__________
+
