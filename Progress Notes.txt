@@ -99,13 +99,41 @@ These binary vectors will be added together for each extracted chord, and the po
 Pseudo-code
 >>> key_signature_array = [0,0,0,0,0,0,0,0,0,0,0,0]
 >>> for chord in extraction_array:
->>>    position_diff = ['A', 'A#', 'B', 'C', ... , 'G', 'G#'].index(chord)
->>>    sequence = [ [1,1,0,0,0,1,0,1,0,0,0,0] , [0,1,0,1,0,0,0,0,1,0,1,0] ].index(any(x=="m" for x in chord))
->>>    scale_array = cylic_shift(sequence, position_diff)
->>>    key_signature_array += scale_array
+>>> position_diff = ['A', 'A#', 'B', 'C', ... , 'G', 'G#'].index(chord)
+>>> sequence = [ [1,1,0,0,0,1,0,1,0,0,0,0] , [0,1,0,1,0,0,0,0,1,0,1,0] ].index(any(x=="m" for x in chord))
+>>> scale_array = cylic_shift(sequence, position_diff)
+>>> key_signature_array += scale_array
 >>> key_signature = max(key_signature_array)
 
 __________
 
 
+3/2/25
+
+Note :
+Detailed explanation of roman numerical chord (triad) representation is given in
+https://www.musictheory.net/lessons/44
+https://www.musictheory.net/lessons
+
+The current prototype of the pre-solution obtains a good estimate for the key signature when the extracted chords have good accuracy.
+Given extracted chords and a key signature, the machine learning model will need to access chord progressions not as the actual notes being, but as the relative distance from the starting note.
+This is notationally represented as I (root note), II, III, IV, V, VI, and VII
+
+Since different songs use different scales, the universal way to compare different chord progressions is to use the roman numerals system.
+Hence an algorithm is required which converts notes to their respective roman numeral representation, depending on the key signature of the song.
+
+This can be achieved by cyclicly shifting the previously used array for storing the scale notes i.e ['A', 'A#', ... , 'G#'] to start with the root note of the scale, and comparing the notes to the index of this array, they can be converted via the same position of an array ['I', 'bII', 'II', 'bIII', ... , 'bVII', 'VII']
+This conversion can hence be stored in a seperate array, which will be used for the training data.
+
+Note: The useful music theory required for this section is
+• Each chord is a "triad", a set of 3 notes seperated by a note each
+• The chord is labelled with a roman numeral by the numerical position of the first note of that chord
+-> i.e the chord from the first note is labelled as I, the chord from the second note is labelled as II, etc
+• Major chords are represented in capital (i.e II, VI) and minor chords are represented in lower case (i.e ii, vi)
+• A 'Flat' (b) represents that the note is played exactly one position below the written note next to it (i.e Ab is played as the note to the left of A)
+• A 'Sharp' (#) represents that the note is played exactly one position above the written note next to it (i.e A# is played as the note to the right of A)
+• In case a chord is not part of the scale (since the scale only uses 7 of the total 12 notes), then it is written with a sharp or flat to the left of the chord (i.e bIII, #iv)
+• Though there is much more musical notation, this study shall limit the notational use to this amount (to make it easier for classication)
+
+__________
 
