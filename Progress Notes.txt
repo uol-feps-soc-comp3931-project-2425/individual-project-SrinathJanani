@@ -50,3 +50,62 @@ Additional Possibilities :
 
 __________
 
+30/1/2025
+
+Note : other potential chord extraction softwares that were considered
+https://github.com/orchidas/Chord-Recognition
+https://github.com/belovm96/chord-detection/tree/master?tab=readme-ov-file#Usage
+https://pypi.org/project/chorder/
+https://pypi.org/project/autochord/#description
+
+An issue with depending on externally provided key signature is that this will also need to be provided when testing with audio, and this results in excess effort when making a custom recording or if the song's scale is unknown to the user.
+Hence it is more optimal to have a key signature identification algorithm to detect the scale.
+
+__________
+
+31/1/2025
+
+The following method aims to calculate the key signature of a song, given the chord extraction output.
+This method is inspired from "https://www.oajaiml.com/uploads/archivepdf/74301105.pdf" (Section 3.2, page 77)
+
+The key signature can be estimated by taking all extracted notes and comparing them to all possible scales, and select the scale with the most number of chords detected part of that scale.
+Due to the rarity of chords appearing outside of the scale especially in pop songs, this method should hypothetically have high accuracy.
+
+Simplifying the algorithm :
+
+• A problem arises with variations of a chord from the same starting note (example,  "F" "F#" "F#5" "F#7" "F#m" "F#m7" "F#sus4" "F2" "F5" "F6" "F7" "F7sus4" "Fm" "Fm13" "Fm7" "Fmaj" "Fmaj7")
+-> These can be stripped down to just the essential chords, i.e F and Fm (starting from F), and F# and F#m (starting from F#). This castly reduces the number of computations required.
+
+• Of all the scales available, the main 2 "major" and "minor" scales will be considered. This means for 12 notes and 2 variations of each note, there are 24 total possible key signatures.
+-> In music theory, there is a relation between minor and major scales where the third note of a minor scale forms a major scale using the exact same chords. This reduces the number of scales to just 12. 
+
+• Each note will have to be verified among every scale. But a convenient trick to use would be to represent all possible scales by their note as a binary sequence. In the sequence, each digit corresponds to whether the chord is present in that scale.
+-> Hence [ A, A#/Bb, B, C, ... , G, G# ] will be converted to a 12 digit binary sequence.
+
+• Instead of checking every single scale, it is notable that the 1st 4th and 5th chords are major, the 2nd 3rd and 6th chords are minor, and the 7th chord can either be considered both major or minor.
+i.e given a major chord for example, we would only need to find the scales where that chord is the 1st chord (C major scale), the 4th chord (G major scale), the 5th chord (F major scale), or possibly the 7th chord (C# major scale).
+-> Hence any chord will only appear in 1 of 4 scales. The above example of C major chord would result in binary output 000110001010
+
+• Moving a scale by i notes, each note in the scale also moves by i positions.
+-> this means that a chord 'i' notes ahead will (cyclic) shift right by i positions
+for example, the d major chord, which is 2 positions ahead of c major, will be represented by 100001100010 i.e A major (4th chord), D major (1st chord), D# major (plausible 7th chord) and G major (5th chord)
+-> this additionally implies that only 2 binary sequences are required to be stored (1 for major, 1 for minor), and cyclic shift operations can be performed on it to indicate which scales it is part of.
+-> this technique also accounts for both major and minor chords of a given note, readily being able to use either sequence depending on whether it is a major or minor chord.
+
+->> Hence given an extracted chord, the first letter is selected. If the second position is "#" or "m", it is also extracted. If the second position was "#", if the third position is "m" then it is also selected. 
+Then based on the distance from A, the respective binary sequence is selected and cyclic shift can be performed on it.
+These binary vectors will be added together for each extracted chord, and the position with the highest count is highly probable to be the key signature of the song.
+
+Pseudo-code
+>>> key_signature_array = [0,0,0,0,0,0,0,0,0,0,0,0]
+>>> for chord in extraction_array:
+>>>    position_diff = ['A', 'A#', 'B', 'C', ... , 'G', 'G#'].index(chord)
+>>>    sequence = [ [1,1,0,0,0,1,0,1,0,0,0,0] , [0,1,0,1,0,0,0,0,1,0,1,0] ].index(any(x=="m" for x in chord))
+>>>    scale_array = cylic_shift(sequence, position_diff)
+>>>    key_signature_array += scale_array
+>>> key_signature = max(key_signature_array)
+
+__________
+
+
+
