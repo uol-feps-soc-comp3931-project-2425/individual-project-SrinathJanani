@@ -137,3 +137,18 @@ Note: The useful music theory required for this section is
 
 __________
 
+
+15/2/25
+
+Choice of data collection:
+
+The current project progress has been successful in being able to extract chords from a song file to a rough accuracy. 
+My plan is to find the top 10 artists globally via spotify, and select their 10 top songs (again via spotify) to try and unbias my data while retaining a pop genre in my dataset.
+
+The issue now arises, that for a fixed dataset like described above, more accuracy will lead to a more accurate research project. In this case, having a 100% accuracy of the data would be preferred. 
+This can be firmly achieved by manually constructing the dataset, or also by webscraping the data from music websites. The former is very tedious, and the latter may have ethical issues.
+
+Although I currently possess a method of extracting chords, it would be beneficial to try new methods to create the dataset. Despite this, the code for this chord extraction will still be useful for the testing phase of the project
+
+__________
+
