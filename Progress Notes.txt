@@ -152,3 +152,71 @@ Although I currently possess a method of extracting chords, it would be benefici
 
 __________
 
+9/3/25
+
+With the basic code ready to process the data, the current task is the collection of the dataset.
+After extensive research on existing databases and methods, the initial plan was to build a webscraper to extract the chords from music websites. This however has potential legal and ethical issues associated with it. In the end, the very creation of the web scraper was too expensive (time wise) to be feasible. 
+
+This research of existing databases and implementations of similar projects also gave clarity onto the structure of the dataset. It is as follows:
+dataset = [
+["artist1", "song 1", 'key_signature', [ [ChordProgression1], [ChordProgression2], ... ]],
+["artist1", "song2", 'key_signature', [ [ChordProgression1] ]], #songs might have only 1 unique chord progression
+...
+["artistX", "songY", 'key_signature', [ [ChordProgression1], [ChordProgression2], ... ]]
+]
+Here, each array of a chord progression will represent sections of the song where 4 chords dominantly represent the musical structure of the song. Hence each array will have length 4, consisting of chords in that progression.
+
+Through this research, it has been found that there are no similar databases or projects that endeavour towards the same goal. This implies that there are no ready databases that can be used. The closest Thus for this project, I will require to construct the database on my own. The other problem with webscraping the raw data is that the effort to process the extracted data will be immense, making it as intensive as manually curating the database.
+
+Through all this research, I have determined that it is best to manually construct the required database. Though the manual effort will take a considerable amount of time, it is more time-efficient that other methods, and will ensure high quality control in the data for this project.
+
+The most helpful websites to identify the correct chords have been
+• Hook Theory (Most accurate, with comprehensive info, but can be reductive and omit chords)
+• Chordify (Also accurate with sufficient chord information, with limited live chord overviews per day)
+• Ultimate Guitar (widely variable accuracy due to information being user generated)
+• E-Chords (concise formatting of information, unreliable accuracy)
+
+Stupid things key signature
+One of the girls - weeknd
+marry you - Bruno mars
+
+
+------------------
+
+17th March 2025
+
+The database is almost complete. The findings so far are that chord information is not very accurate on the internet, with HookTheory having the most accurate and comprehensive information which has been crowd-sourced. However, some songs on HookTheory are missing sections of new chords, since the website stops analysing at the first instance of a part of the song (i.e first verse, first chorus, etc).
+Chordify instead automatically transcribes chords from audio. This is not always accurate, but covers all chords with sufficient accuracy, while missing information like the key signature and labelling parts of the song.
+If both these websites failed, then using another website would suffice. It is important to note that in the creation of the database, all songs' chords were manually tested and ensured to be accurate using my guitar and https://muted.io/piano-chords/
+
+With each chord progression being a 4-d array to be enumerated into a 4-d vector, the data must account for repeating artists for the same data points, as well as a non-linear relation withing datapoints of artists. The best fit of a ML model has been chosen as k-Nearest Neighbour, and similarity to all artists can be calculated as the Euclidian distance. 
+
+To enumerate the chords, they will be ranked by their usage, source:
+https://www.hooktheory.com/blog/chord-progression-search-patterns-and-trends/ AND
+https://www.hooktheory.com/trends#key=Rel&scale=major
+
+From this website, the % use of chords has been found to be:
+I - 13% + 1%
+i - _ + 14%
+bII - _ + 0.7%
+bii - 
+II - 
+ii - 3% + 0.3%
+bIII - 0.4%
+biii - 
+III - _ + 6%
+iii - 3% + 0.2%
+IV - 10% + 1%
+iv - 0.9% + 5%
+bV - _ + 0.2%
+bv - 0.2%
+V - 9% + 3%
+v - 0.2% + 3%
+bVI - 0.7%
+bvi - 
+VI - _ + 9%
+vi - 7% + 0.2%
+bVII - 1%
+bvii - _ + 0.2%
+VII - _ + 9%
+vii - _ + 0.2%
