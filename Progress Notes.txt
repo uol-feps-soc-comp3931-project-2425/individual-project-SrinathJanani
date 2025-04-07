@@ -220,3 +220,36 @@ bVII - 1%
 bvii - _ + 0.2%
 VII - _ + 9%
 vii - _ + 0.2%
+
+
+--------------
+
+24/3/25 
+
+The database and related functions for pre-processing the data. 
+The goal of the project will now be to conduct various types of ML algorithm testing. This will test over:
+- kNN for different numbers of neighbours
+- binary classification iterated over all artists
+- linear regression
+- decision trees, random forest?
+- support vector machine?
+
+
+Various factors affecting the output
+- songs are not always made by the main artist
+- artists use a variety of chord progressions and chords, some common occurences is not universal among all artists
+- the style of a musician is also seen in the instruments, production, type of vocal performance, etc. Hence the chords alone might not provide a clear insight onto musical style.
+- the algorithms used only attempt to analyse the musical data, rather than provide a solution of describing musical styles
+- this model and data is a small-scale prototype, since the level of detail of the data is intricate
+- collaborations of multiple artists may mix different styles together in the music
+
+-------------------
+
+2/4/25
+
+The total variations of testing can be attributed to:
+- the ordering of enumeration of the chords (2)
+- using the lone enumeration vs obtaining the difference to relate both successive chords (2)
+- the type of machine learning applied (5 + dummy)
+- number of artists being considered at a time
+- splitting of training and testing data
