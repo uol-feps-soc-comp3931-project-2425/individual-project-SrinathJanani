@@ -43,12 +43,53 @@ def cyclic_shift(array, num, left = 0): # shifts the positions of an array cycli
         print("Error in array or num, please check input.")
         return
 
-scales = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#']
 #scales_minor = [key+'m' for key in scales_major]
 roman_progressions = ['I','bII','II','bIII','III','IV','bV','V','bVI','VI','bVII','VII']
+
+scales = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#']
+
 minor_scale = ['I','#I','II','III','#III','IV','#IV','V','VI','#VI','VII','#VII']
 major_scale = ['I','#I','II','#II','III','IV','#IV','V','#V','VI','#VI','VII']
 
+
+def AccidentalsConversion(note, order):
+
+    # This function is designed to convert only fully cleaned chords
+    try:
+        converted_note = note
+        
+        if order == '#b':
+            if len(note)==1 or ('m' in note and len(note)==2) or note[1] == 'b':
+                pass
+            elif note[1] == '#':
+                transfer = ['G#','A#','C#','D#','F#'].index(note[:2])
+                converted_note = ['Ab','Bb','Db','Eb','Gb'][transfer]
+                if 'm' in note:
+                    converted_note += 'm'
+            else:
+                print(f"Error in AccidentalsConversion: 'note' {note} is not in a correct format.")
+                return None
+            return converted_note
+                                
+        elif order == 'b#':
+            if len(note)==1 or ('m' in note and len(note)==2) or note[1] == '#':
+                pass
+            elif note[1] == 'b':
+                transfer = ['Ab','Bb','Db','Eb','Gb'].index(note[:2])
+                converted_note = ['G#','A#','C#','D#','F#'][transfer]
+                if 'm' in note:
+                    converted_note += 'm'
+            else:
+                print(f"Error in AccidentalsConversion: 'note' {note} is not in a correct format.")
+                return None
+            return converted_note
+        
+        else:
+            print(f"Error in AccidentalsConversion: order {order} is not compatible")
+            return None 
+    except:
+        print(f"Error in AccidentalsConversion: error with note {note} or order {order}")
+        return None
 
 def CleanChord(chord, full_clean = 0):
 
@@ -132,8 +173,28 @@ def ConvertToRoman(chords_arr, key):
 
 # Array to enumerate chords, based on frequency of appearance in music
 
+'''
 EnumerateChords = [ 
     'I','IV','V','vi','ii','iii','II','vii',
     'i','VI','VII','III','iv','v','bVII','bVI',
     'bIII','bII','bvii','bV','bv','biii','bvi','bii'
     ] # first row = major scale chords, second row = minor scale chords, third row = out-of-scale chords
+'''
+
+# Enumeration based on frequency of usage
+EnumerateChords = [ 
+    'I','IV','V','vi','ii','iii','II','vii',
+    'i','VI','VII','III','iv','v','#VI','#V',
+    '#II','#I','#vii','#VII','#vi','#IV',
+    '#iv','#ii','#v','#i', '#III', '#iii'
+    ]
+    # first row = major scale chords, second row = minor scale chords,
+    #third and fourth row = out-of-scale chords
+
+# Enumeration based on ascending order appearance in an octave
+EnumerateChords = [
+    'I','i','#I','#i','II','ii','#II',
+    '#ii','III','iii','#III','#iii','IV','iv',
+    '#IV','#iv','V','v','#V','#v','VI',
+    'vi','#VI','#vi','VII','vii','#VII','#vii'
+    ]
