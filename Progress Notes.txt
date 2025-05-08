@@ -253,3 +253,71 @@ The total variations of testing can be attributed to:
 - the type of machine learning applied (5 + dummy)
 - number of artists being considered at a time
 - splitting of training and testing data
+
+
+------------------------
+
+Literature Review 
+
+
+Chord prediction:
+- https://medium.com/@huanlui/chordsuggester-i-3a1261d4ea9e
+- https://www.irjmets.com/uploadedfiles/paper//issue_12_december_2023/46945/final/fin_irjmets1701708528.pdf
+- *** https://arxiv.org/html/2410.22046v1#Sx4
+- https://github.com/gabrantes/ML-Chord-Progressions
+
+>> Genre classification:
+- https://ionides.github.io/students/cpyang_honors_thesis.pdf
+- https://www.oajaiml.com/uploads/archivepdf/74301105.pdf
+- https://www.mage.ai/blog/music-genre-classification
+- https://medium.com/@joshuadavidgottlieb/classifying-music-genres-based-on-song-lyrics-dc380a281954 (by lyric)
+- https://towardsdatascience.com/classifying-song-genre-using-spotifys-built-in-features-vs-extracting-my-own-a4d5fe448948/
+- https://www.oajaiml.com/uploads/archivepdf/74301105.pdf
+- https://www.researchgate.net/publication/319569608_Using_simplified_chords_sequences_to_classify_songs_genres (by simplified chord sequences)
+- https://ieeexplore.ieee.org/document/8019531
+- https://arxiv.org/abs/1902.03283
+
+>> Chord recognition:
+- https://medium.com/@locopornatureza/exploring-the-intersection-of-deep-learning-and-music-my-journey-in-creating-a-chord-recognition-9d2f3b1c1be8
+- https://onlinelibrary.wiley.com/doi/10.1155/2021/5590996
+- https://www.mdpi.com/2076-3417/6/5/157
+
+>> Major vs Minor classification:
+- https://www.kaggle.com/code/ahmetcelik158/mathematics-of-music-chord-classification#4.-Model-Building
+
+Chord Generation:
+- https://cs229.stanford.edu/proj2015/136_report.pdf
+- https://asmp-eurasipjournals.springeropen.com/articles/10.1186/s13636-023-00288-5
+- https://ismir2023program.ismir.net/lbd_316.html
+- https://www.mdpi.com/2227-7390/11/5/1111
+
+Instrument classification:
+- https://www.tandfonline.com/doi/abs/10.1076/jnmr.32.1.3.16798
+
+<< Hit song prediction:
+- https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2023.1154663/full
+
+classifying by song features:
+- https://digibuo.uniovi.es/dspace/bitstream/handle/10651/49411/Chord.pdf?sequence=1&isAllowed=y
+
+>>>> classifying artists:
+- https://arxiv.org/abs/1901.04555
+- https://github.com/jcguidry/classical-music-artist-classification
+- https://researchportal.northumbria.ac.uk/en/publications/a-multi-task-music-artist-classification-network
+- https://www.ee.columbia.edu/~dpwe/pubs/aes02-aclass.pdf
+- https://www.ifs.tuwien.ac.at/~knees/publications/knees_oegai05-1.pdf
+- https://www.researchgate.net/publication/2486763_Artist_Detection_in_Music_with_Minnowmatch
+
+
+
+
+
+
+
+
+
+
+
+
+
+

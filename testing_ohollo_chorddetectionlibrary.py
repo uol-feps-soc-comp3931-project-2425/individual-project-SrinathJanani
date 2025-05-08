@@ -26,6 +26,6 @@ for i in range(0,len(chords)):
 #print(chord_list,"\n\n",times_list)
 song_name = song_location.split("\\")[-1]
 print(song_name)
-#for i in range(0,len(chords)):
-    #print(f"Chord = {chord_list[i]}, at time {times_list[i]}.")
+for i in range(0,len(chords)):
+    print(f"Chord = {chord_list[i]}, at time {times_list[i]}.")
 print("\nEnd of computation!")

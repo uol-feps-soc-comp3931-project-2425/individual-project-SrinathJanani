@@ -1,5 +1,6 @@
 # Library Imports
 from chord_extractor.extractors import Chordino
+import sys
 
 
 ### Structure Definitions :
@@ -55,9 +56,21 @@ scales = ['A','A#','B','C','C#','D','D#','E','F','F#','G','G#']
 #song_location = r"C:\Users\srina\Music\morgan powers - Disarray.mp3"
 #song_location = r"C:\Users\srina\Music\Viva La Vida or Death And All Of His Friends\07. Viva La Vida.mp3"
 #song_location = r"C:\Users\srina\Music\A Rush Of Blood To The Head (2002)\03-coldplay-god_put_a_smile_upon_your_face.mp3"
+#song_location = r"C:\Users\srina\Music\Parachutes (2000)\05 Yellow.m4a"
+song_location = r"C:\Users\srina\Music\A Rush Of Blood To The Head (2002)\04-coldplay-the_scientist.mp3"
+print(song_location)
 
+#new_file_path = chordino.preprocess(r'C:\Users\srina\Music\Parachutes (2000)\05 Yellow.m4a')
+#new_file_path = chordino.preprocess(song_location)
 chords = chordino.extract(song_location)
-
+'''
+try:
+    chords = chordino.extract(song_location)
+except:
+    print("There was an error extracting from this file. Terminating program...")
+    new_file_path = chordino.preprocess(song_location)
+    chords = chordino.extract(new_file_path)
+'''
 
 raw_chord_list = []
 raw_times_list = []
@@ -69,8 +82,6 @@ for i in range(0,len(chords)):
 #print(chord_list,"\n\n",times_list)
 song_info = song_location.split("\\")[-1]
 #print(song_info)
-#for i in range(0,len(chords)):
-#    print(f"Chord = {chord_list[i]}, at time {times_list[i]}.")
     
 print()
 
@@ -108,7 +119,7 @@ for raw_chord in chord_list:
         elif raw_chord[1] == 'm':
             chord += raw_chord[1]
 
-    print(raw_chord, chord)
+    #print(raw_chord, chord)
     
     is_minor = int(any(x=="m" for x in chord))
     if 'm' in chord:
@@ -159,8 +170,16 @@ for chord in chord_list: # going through each chord one by one
 print(key_scale)
 print(roman_progressions)
 print(len(chord_list), len(progression_list))
+'''
 for i in range(0,len(chord_list)):
     print(f"chord {chord_list[i]} is {progression_list[i]}")
     pass
+
+for i in range(0,len(chords)):
+    print(f"Chord = {raw_chord_list[i]}, at time {raw_times_list[i]}.")
+'''
+for i in range(0, len(chord_list)):
+    print(f"Chord : {chord_list[i]}, Roman : {progression_list[i]}, Time : {times_list[i]}")
+    
 
 print("\nEnd of computation!")
